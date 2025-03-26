@@ -5,6 +5,11 @@ import main_code, exportCSV
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def default():
+    return Response('hello there')
+
+
 @app.route('/read_omr', methods=['POST'])
 def run_omr_code():
     data = request.get_json()
@@ -17,4 +22,5 @@ def run_omr_code():
     return Response(message)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0')
