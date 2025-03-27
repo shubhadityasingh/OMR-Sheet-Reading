@@ -1,2 +1,3 @@
 omrenv/
 __pycache__/
+.env

@@ -20,5 +20,4 @@ def exportCSVFile(FTP_Path, FTP_Paper_ID, FTP_Student_ID):
         return (1, "success")
     except Exception as e:
         error_msg = str(e)
-        print('The error is:', error_msg)
         return (0, error_msg)
