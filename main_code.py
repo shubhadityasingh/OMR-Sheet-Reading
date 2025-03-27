@@ -311,5 +311,6 @@ def everything(FTP_Path, FTP_Paper_ID, FTP_Student_ID):
         # print(finalResultDf)
         return (1, 'success')
     except Exception as e:
-        print('The error is:', e)
-        return (0, e)
+        error_msg = str(e)
+        print('The error is:', error_msg)
+        return (0, error_msg)
