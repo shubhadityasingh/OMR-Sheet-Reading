@@ -26,15 +26,14 @@ def executeOMRReadingCode():
     FTP_Student_ID = request.args.get('FTP_Student_ID')
     if FTP_Student_ID == None:
         FTP_Student_ID = ''
-    print(">> 01 -- Request parameters parsed <<")
+    
+    print(FTP_Path, ' | ', FTP_Paper_ID, ' | ', FTP_Student_ID)
     status, message = main_code.everything(FTP_Path, FTP_Paper_ID, FTP_Student_ID)
-    print(">> 02 -- OMR processing completed <<")
+    print("01 | OMR Processing Status -- ", status, " | Message -- ", message)
     if status == 1:
         status, message = exportCSV.exportCSVFile(FTP_Path, FTP_Paper_ID, FTP_Student_ID)
-    print(">> 03 -- CSV export completed <<")
-    print(">> 04 -- ", status, " -- ", message, " <<")
+        print("02 | CSV Exporting Status -- ", status, " | Message -- ", message)
     return jsonify(status=status, message=message)
-    # return jsonify(FTP_Path = FTP_Path, FTP_Paper_ID = FTP_Paper_ID, FTP_Student_ID = FTP_Student_ID)
 
 
 
