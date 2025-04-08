@@ -1,3 +1,4 @@
+import os
 import ftplib
 from dotenv import load_dotenv
 
