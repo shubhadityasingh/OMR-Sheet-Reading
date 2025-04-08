@@ -1,14 +1,22 @@
 import ftplib
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def exportCSVFile(FTP_Path, FTP_Paper_ID, FTP_Student_ID):
     try: 
         ftp_split = FTP_Path.split("/")
-        print(ftp_split[2])
 
-        with ftplib.FTP(ftp_split[2]) as ftpServer:
+        ftp_host = os.getenv('FTP_HOST') if os.getenv('FTP_HOST') != '' else split(split(ftp_split[2], '@')[-1], ':')[-1]
+        ftp_user = os.getenv('FTP_USER')
+        ftp_pass = os.getenv('FTP_PASS')
+
+        ftp_file_path = os.getenv('FTP_FILE_PATH')
+
+        with ftplib.FTP(host=ftp_host, user=ftp_user, passwd=ftp_pass) as ftpServer:
             ftpServer.login()
-            ftpServer.cwd(f'learn/OMR_Response/{FTP_Paper_ID}/OMR_Output')
+            # ftpServer.cwd(f'learn/OMR_Response/{FTP_Paper_ID}/OMR_Output')
+            ftpServer.cwd(f'{ftp_file_path}/{FTP_Paper_ID}/OMR_Output')
             
             local_file_path = f'OMR_Output/{FTP_Student_ID}.csv'
             
