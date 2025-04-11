@@ -28,11 +28,39 @@ def executeOMRReadingCode():
         FTP_Student_ID = ''
     
     print(FTP_Path, ' | ', FTP_Paper_ID, ' | ', FTP_Student_ID)
-    status, message = main_code.everything(FTP_Path, FTP_Paper_ID, FTP_Student_ID)
+    status, message = main_code.processOMR(FTP_Path, FTP_Paper_ID, FTP_Student_ID)
     print("01 | OMR Processing Status -- ", status, " | Message -- ", message)
     if status == 1:
         status, message = exportCSV.exportCSVFile(FTP_Path, FTP_Paper_ID, FTP_Student_ID)
         print("02 | CSV Exporting Status -- ", status, " | Message -- ", message)
+    return jsonify(status=status, message=message)
+
+
+@app.route('/batch_omr', methods=['GET'])
+def executeBatchOMRReading():
+    FTP_Path = request.args.get('FTP_Path')
+    print(FTP_Path)
+    if FTP_Path == None or FTP_Path == '' or FTP_Path == ' ':
+        FTP_Path = os.getenv('FTP_PATH')
+    FTP_Paper_ID = request.args.get('FTP_Paper_ID')
+    if FTP_Paper_ID == None:
+        FTP_Paper_ID = ''
+    
+    print(FTP_Path, ' | ', FTP_Paper_ID)
+    status, message = main_code.batchProcessOMR(FTP_Path, FTP_Paper_ID)
+    print("01 | OMR Processing Status -- ", status, " | Message -- ", message)
+    if status == 1:
+        status, message = exportCSV.exportBatchCSVFile(FTP_Path, FTP_Paper_ID)
+        print("02 | CSV Exporting Status -- ", status, " | Message -- ", message)
+    
+    if status == 1:
+        status, message = main_code.batchDeleteImageFiles(FTP_Paper_ID)
+        print("03 | Deleting Cached Images Status -- ", status, " | Message -- ", message)
+
+    if status == 1:
+        status, message = main_code.batchDeleteCSVFiles(FTP_Paper_ID)
+        print("04 | Deleting Cached CSVs Status -- ", status, " | Message -- ", message)
+
     return jsonify(status=status, message=message)
 
 
@@ -41,7 +69,7 @@ def executeOMRReadingCode():
 def run_omr_code():
     data = request.get_json()
     print(data)
-    status, message = main_code.everything(data['FTP_Path'], data['FTP_Paper_ID'], data['FTP_Student_ID'])
+    status, message = main_code.processOMR(data['FTP_Path'], data['FTP_Paper_ID'], data['FTP_Student_ID'])
     if status == 1:
         status, message = exportCSV.exportCSVFile(data['FTP_Path'], data['FTP_Paper_ID'], data['FTP_Student_ID'])
     
