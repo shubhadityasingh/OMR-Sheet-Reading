@@ -70,7 +70,7 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID):
         batch_images_dir = os.path.join(os.getcwd(), 'Batch_OMR_Image', FTP_Paper_ID)
         batch_output_dir = os.path.join(os.getcwd(), 'Batch_OMR_Output', FTP_Paper_ID)
 
-        columnName = ['Set Number', 'Barcode Value', 'Roll Number']
+        columnName = ['Filename', 'Set Number', 'Barcode Value', 'Roll Number']
         for xi in range(100):
             columnName.append('Ans' + str(xi + 1))
 
@@ -347,7 +347,7 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID):
 
             allAnswer = np.concatenate((myIndex1_25, myIndex26_50, myIndex51_75, myIndex76_100))
             # print("All Answer :" ,allAnswer)
-            finalAns = [finalSetNumber, f"'{read_barcode(image_path)}", f"'{finalRollNumber}"] + [' ' if x == 0 else chr(97 + x - 1) for x in allAnswer]
+            finalAns = [image_name.split('.')[0], finalSetNumber, f"'{read_barcode(image_path)}", f"'{finalRollNumber}"] + [' ' if x == 0 else chr(97 + x - 1) for x in allAnswer]
             # print(len(finalAns))
 
             Final_CSV_Output.append(finalAns)
