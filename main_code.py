@@ -347,7 +347,7 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID, FTP_Batch_Name):
 
             allAnswer = np.concatenate((myIndex1_25, myIndex26_50, myIndex51_75, myIndex76_100))
             # print("All Answer :" ,allAnswer)
-            finalAns = [image_name.split('.')[0], finalSetNumber, f"'{read_barcode(image_path)}", f"'{finalRollNumber}"] + [' ' if x == 0 else chr(97 + x - 1) for x in allAnswer]
+            finalAns = [f"'{image_name.split('.')[0]}", finalSetNumber, f"'{read_barcode(image_path)}", f"'{finalRollNumber}"] + [' ' if x == 0 else chr(97 + x - 1) for x in allAnswer]
             # print(len(finalAns))
 
             Final_CSV_Output.append(finalAns)
