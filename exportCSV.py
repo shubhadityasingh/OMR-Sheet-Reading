@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def exportBatchCSVFile(FTP_Path, FTP_Paper_ID):
+def exportBatchCSVFile(FTP_Path, FTP_Paper_ID, FTP_Batch_Name):
     try: 
         ftp_host = os.getenv('FTP_HOST')
         ftp_user = os.getenv('FTP_USER')
@@ -12,7 +12,7 @@ def exportBatchCSVFile(FTP_Path, FTP_Paper_ID):
 
         ftp_file_path = os.getenv('FTP_FILE_PATH')
 
-        batch_output_dir = os.path.join(os.getcwd(), 'Batch_OMR_Output', FTP_Paper_ID, 'batch.csv')
+        batch_output_dir = os.path.join(os.getcwd(), 'Batch_OMR_Output', FTP_Paper_ID, FTP_Batch_Name + '.csv')
 
         with ftplib.FTP(host=ftp_host, user=ftp_user, passwd=ftp_pass) as ftpServer:
             ftpServer.login()
@@ -22,7 +22,7 @@ def exportBatchCSVFile(FTP_Path, FTP_Paper_ID):
             local_file_path = batch_output_dir
             
             with open(local_file_path, 'rb') as file:
-                ftpServer.storbinary(f'STOR batch.csv', file)  
+                ftpServer.storbinary(f'STOR {FTP_Batch_Name}.csv', file)  
                 ftpServer.quit()
                 print("Sent Successfully")
         

@@ -63,7 +63,7 @@ def batchDeleteCSVFiles(Paper_ID):
         return (0, error_msg)
 
 
-def batchProcessOMR(FTP_Path, FTP_Paper_ID):
+def batchProcessOMR(FTP_Path, FTP_Paper_ID, FTP_Batch_Name):
     try:
         batchDownloadImages(FTP_Paper_ID)
 
@@ -353,7 +353,7 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID):
             Final_CSV_Output.append(finalAns)
 
         finalResultDf = pd.DataFrame(Final_CSV_Output, columns=columnName)
-        finalResultDf.to_csv(os.path.join(batch_output_dir, 'batch.csv'), encoding='utf-8', index=False)
+        finalResultDf.to_csv(os.path.join(batch_output_dir, FTP_Batch_Name + '.csv'), encoding='utf-8', index=False)
 
         return (1, 'success')
     except Exception as e:

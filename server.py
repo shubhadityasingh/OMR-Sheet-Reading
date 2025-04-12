@@ -45,12 +45,15 @@ def executeBatchOMRReading():
     FTP_Paper_ID = request.args.get('FTP_Paper_ID')
     if FTP_Paper_ID == None:
         FTP_Paper_ID = ''
+    FTP_Batch_Name = request.args.get('FTP_Batch_Name')
+    if FTP_Batch_Name == None:
+        FTP_Batch_Name = ''
     
-    print(FTP_Path, ' | ', FTP_Paper_ID)
-    status, message = main_code.batchProcessOMR(FTP_Path, FTP_Paper_ID)
+    print(FTP_Path, ' | ', FTP_Paper_ID, ' | ', FTP_Batch_Name)
+    status, message = main_code.batchProcessOMR(FTP_Path, FTP_Paper_ID, FTP_Batch_Name)
     print("01 | OMR Processing Status -- ", status, " | Message -- ", message)
     if status == 1:
-        status, message = exportCSV.exportBatchCSVFile(FTP_Path, FTP_Paper_ID)
+        status, message = exportCSV.exportBatchCSVFile(FTP_Path, FTP_Paper_ID, FTP_Batch_Name)
         print("02 | CSV Exporting Status -- ", status, " | Message -- ", message)
     
     if status == 1:
