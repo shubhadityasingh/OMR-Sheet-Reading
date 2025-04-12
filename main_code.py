@@ -109,19 +109,19 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID):
             imgCrop = img[top:-bottom, left:-right] 
 
             #Question number 1 -25
-            top, bottom, left, right = 410, 192, 100, 705
+            top, bottom, left, right = 412, 190, 100, 705
             imgCrop1_25 = img[top:-bottom, left:-right] 
 
             #Question number 26 -50
-            top, bottom, left, right = 410, 192, 252, 550
+            top, bottom, left, right = 412, 190, 252, 550
             imgCrop26_50 = img[top:-bottom, left:-right] 
 
             #Question number 51 -75
-            top, bottom, left, right = 410, 192, 405, 400
+            top, bottom, left, right = 412, 190, 405, 400
             imgCrop51_75 = img[top:-bottom, left:-right] 
 
             #Question number 76-100
-            top, bottom, left, right = 410, 192, 555, 250
+            top, bottom, left, right = 412, 190, 555, 250
             imgCrop76_100 = img[top:-bottom, left:-right] 
 
             #Crop for Set Number
@@ -146,12 +146,12 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID):
 
             # Apply threshold 
             imgThreshrollnum = cv2.threshold(imgGray, 150, 255, cv2.THRESH_BINARY_INV)[1]
-            imgThresh1_25 = cv2.threshold(imgGray1_25, 150, 255, cv2.THRESH_BINARY_INV)[1]
+            imgThresh1_25 = cv2.threshold(imgGray1_25, 170, 255, cv2.THRESH_BINARY_INV)[1]
             imgThresh26_50 = cv2.threshold(imgGray26_50, 150, 255, cv2.THRESH_BINARY_INV)[1]
             imgThresh51_75 = cv2.threshold(imgGray51_75, 150, 255, cv2.THRESH_BINARY_INV)[1]
             imgThresh76_100 = cv2.threshold(imgGray76_100, 150, 255, cv2.THRESH_BINARY_INV)[1]
             imgThreshSet = cv2.threshold(imgGraySet, 150, 255, cv2.THRESH_BINARY_INV)[1]
-            #cv2.imshow("Crop", imgThreshSet)
+            # cv2.imshow("Crop", imgThresh1_25)
             # cv2.waitKey(0)
 
             #This is for Roll Number Split Boxes
@@ -207,7 +207,7 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID):
             myPixelVal1_25[(myPixelVal1_25 == 0).all(axis=1)] = 0
             myIndex1_25 = np.argmax(myPixelVal1_25, axis=1) + 1
             myIndex1_25[(myPixelVal1_25 == 0).all(axis=1)] = 0
-            #print("1-25:", myIndex1_25)
+            # print("1-25:", myIndex1_25)
 
 
             #This is for Question 26-50 Split Boxes
@@ -332,7 +332,7 @@ def batchProcessOMR(FTP_Path, FTP_Paper_ID):
             # print("Set:", myIndexSet)
 
             #This is for Bar code Reading 
-            
+
             def read_barcode(image_path) :
                 img =Image.open(image_path)
                 decode_object =decode(img)
@@ -419,19 +419,19 @@ def processOMR(FTP_Path, FTP_Paper_ID, FTP_Student_ID):
         imgCrop = img[top:-bottom, left:-right] 
 
         #Question number 1 -25
-        top, bottom, left, right = 410, 192, 100, 705
+        top, bottom, left, right = 412, 190, 100, 705
         imgCrop1_25 = img[top:-bottom, left:-right] 
 
         #Question number 26 -50
-        top, bottom, left, right = 410, 192, 252, 550
+        top, bottom, left, right = 412, 190, 252, 550
         imgCrop26_50 = img[top:-bottom, left:-right] 
 
         #Question number 51 -75
-        top, bottom, left, right = 410, 192, 405, 400
+        top, bottom, left, right = 412, 190, 405, 400
         imgCrop51_75 = img[top:-bottom, left:-right] 
 
         #Question number 76-100
-        top, bottom, left, right = 410, 192, 555, 250
+        top, bottom, left, right = 412, 190, 555, 250
         imgCrop76_100 = img[top:-bottom, left:-right] 
 
         #Crop for Set Number
@@ -456,12 +456,12 @@ def processOMR(FTP_Path, FTP_Paper_ID, FTP_Student_ID):
 
         # Apply threshold 
         imgThreshrollnum = cv2.threshold(imgGray, 150, 255, cv2.THRESH_BINARY_INV)[1]
-        imgThresh1_25 = cv2.threshold(imgGray1_25, 150, 255, cv2.THRESH_BINARY_INV)[1]
+        imgThresh1_25 = cv2.threshold(imgGray1_25, 170, 255, cv2.THRESH_BINARY_INV)[1]
         imgThresh26_50 = cv2.threshold(imgGray26_50, 150, 255, cv2.THRESH_BINARY_INV)[1]
         imgThresh51_75 = cv2.threshold(imgGray51_75, 150, 255, cv2.THRESH_BINARY_INV)[1]
         imgThresh76_100 = cv2.threshold(imgGray76_100, 150, 255, cv2.THRESH_BINARY_INV)[1]
         imgThreshSet = cv2.threshold(imgGraySet, 150, 255, cv2.THRESH_BINARY_INV)[1]
-        #cv2.imshow("Crop", imgThreshSet)
+        # cv2.imshow("Crop", imgThresh1_25)
         # cv2.waitKey(0)
 
         #This is for Roll Number Split Boxes
@@ -517,7 +517,7 @@ def processOMR(FTP_Path, FTP_Paper_ID, FTP_Student_ID):
         myPixelVal1_25[(myPixelVal1_25 == 0).all(axis=1)] = 0
         myIndex1_25 = np.argmax(myPixelVal1_25, axis=1) + 1
         myIndex1_25[(myPixelVal1_25 == 0).all(axis=1)] = 0
-        #print("1-25:", myIndex1_25)
+        # print("1-25:", myIndex1_25)
 
 
         #This is for Question 26-50 Split Boxes
@@ -642,7 +642,7 @@ def processOMR(FTP_Path, FTP_Paper_ID, FTP_Student_ID):
         # print("Set:", myIndexSet)
 
         #This is for Bar code Reading 
-        
+
         def read_barcode(image_path) :
             img =Image.open(image_path)
             decode_object =decode(img)
